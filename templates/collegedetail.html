@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<br>
+<br>
+ <div class="panel panel-primary">
+      <div class="panel-heading">{{ college.name }}</div>
+      <div class="panel-body">
+      <p> <h3> college departments : </h3> college departments : </p>
+    <p> <h3> university : </h3> {{ university.name  }} </p>
+       <div class="panel-footer">
+           <a href='{{url_for('edit_college', uni_id = university.id, college_id=college.id ) }}'>Edit</a> |
+           <a href='{{url_for('delete_college', uni_id = university.id, college_id=college.id ) }}'>Delete</a>
+      </div>
+       </div>
+    </div>
+
+{% endblock %}

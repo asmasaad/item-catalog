@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h1>New College</h1>
+
+		<form action="#" method = "post">
+            college name: <input type="text" name="name" ><br>
+            college departments : <input type="text" name="department" ><br>
+            universty :
+  <div class="radio">
+      {% for universty in universty %}
+      <label><input type="radio" name="universtyid" value="{{ universty.id }}"> {{ universty.name }} </label>
+      {% endfor %}
+  </div>
+            <input type="submit" value="Add">
+        </form>
+{% endblock %}
+
+
+

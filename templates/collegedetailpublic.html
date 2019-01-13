@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<br>
+<br>
+<br>
+ <div class="panel panel-primary">
+      <div class="panel-heading">{{ college.name }}</div>
+      <div class="panel-body">
+      <p> <h3> college departments : </h3> {{ college.department }}</p>
+    <p> <h3> university : </h3> {{ university.name  }} </p>
+      </div>
+ </div>
+{% endblock %}

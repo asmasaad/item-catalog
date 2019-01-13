@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<h1>college of  {{ universty.name }} Universty</h1>
+
+
+<p>{% for college in college %}</p>
+<a href = "{{url_for('show_college_detail', college_id = college.id, uni_id = universty.id  )}}" >{{ college.name }}  </a>
+{% endfor %}
+{% endblock %}
