@@ -180,33 +180,23 @@ def universty_collegies_json(id):
 @app.route('/universty/json')
 def homepagejson():
     universty = session.query(University).all()
+
     return jsonify(universies=[i.serialize for i in universty])
 
 
-@app.route('/universty/<int:uni_id>/colleges/items/<int:college_id>/json')
+@app.route('/universty/colleges/items/<int:college_id>/json')
 def show_college_detail_json(college_id):
     collegie = session.query(College).filter_by(id=college_id).one()
     return jsonify(collegie=collegie.serialize)
 
 
-@app.route('/universty/<int:uni_id>', methods=['GET', 'POST'])
-def homepage(uni_id):
+@app.route('/universty/')
+def homepage():
     universties = session.query(University).all()
-    collegies = session.query(College).limit(5)
-    if request.method == 'POST':
-        if request.form['name']:
-            if uni_id != 0:
-                collegies = session.query(College).\
-                    filter_by(university_id=uni_id).all()
-                return render_template('homepage.html', universty=universties,
-                                       college=collegies, uni_id=uni_id)
-
     if 'username' not in login_session:
-        return render_template('homepagepublic.html',
-                               universty=universties, uni_id=uni_id)
+        return render_template('homepagepublic.html', universty=universties)
     else:
-        return render_template('homepage.html', universty=universties,
-                               college=collegies, uni_id=uni_id)
+        return render_template('homepage.html', universty=universties)
 
 
 @app.route('/universty/login')
@@ -236,12 +226,9 @@ def add_new_college():
                           university_id=request.form["universtyid"],
                           user_id=login_session['user_id'])
         flash('New college %s Successfully Created' % college.name)
-        flash('New college %s' % college.user_id)
-        flash('New college %s' % college.department)
-        flash('New college %s' % college.university_id)
         session.add(college)
         session.commit()
-        return redirect(url_for('homepage', uni_id=0))
+        return redirect(url_for('homepage'))
 
     return render_template('newcollege.html', universty=universties)
 
@@ -281,8 +268,8 @@ def edit_college(uni_id, college_id):
             college.university_id = request.form['universtyid']
         session.add(college)
         session.commit()
-        flash('college Successfully Edited')
-        return redirect(url_for('universty_collegies', id=uni_id))
+        flash('%s Successfully updated' % college.name)
+        return redirect(url_for('homepage'))
     else:
         return render_template('editCollege.html',
                                universty=universties,
@@ -302,11 +289,13 @@ def delete_college(uni_id, college_id):
                "<body onload='alertfun()''>"
 
     if request.method == 'POST':
-        session.delete(collegewantdelete)
-        flash('%s Successfully Deleted' % collegewantdelete.name)
-        session.commit()
-        return redirect(url_for('universty_collegies',
-                                id=uni_id))
+        if 'submit' in request.form:
+            session.delete(collegewantdelete)
+            flash('%s Successfully Deleted' % collegewantdelete.name)
+            session.commit()
+            return redirect(url_for('homepage'))
+        else:
+            return redirect(url_for('homepage'))
     else:
         return render_template('deletecollege.html',
                                college=collegewantdelete)

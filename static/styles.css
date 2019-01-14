@@ -10,13 +10,6 @@ li {
   float: left;
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
 
 li a:hover:not(.active) {
   background-color: #111;
@@ -28,10 +21,45 @@ li a:hover:not(.active) {
 body {
   width: 100%;
   height: 100%;
+    color:#337ab7 !important;
+    margin-right: 40px!important;
+    margin-left: 40px!important;
 }
 header {
   width: 100%;
   height: 100%;
-  background: url(header.jpg) center center no-repeat;
   background-size: cover;
+}
+.navbar-default {
+  background-color: #337ab7 !important;
+  color: #FFFFFF !important;
+}
+.navbar {
+    color: #FFFFFF !important;
+    background-color: #337ab7 !important;
+}
+.navbar-right
+{    color: #FFFFFF !important;
+    background-color: #337ab7 !important;
+
+}
+.navbar-default .navbar-nav>li>a {
+    color: #FFFFFF !important;
+   float: right;
+}
+
+.navbar-default .navbar-brand {
+    color: #FFFFFF !important;
+
+}
+.list-group-item {
+    margin-right: 40px!important;
+}
+p{
+    color: #337ab7;
+}
+.btn-default {
+    color: #337ab7!important;
+    background-color: #fff!important;
+    border-color: rgba(127, 82, 82, 0.5)!important;
 }
